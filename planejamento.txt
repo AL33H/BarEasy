@@ -1,0 +1,15 @@
+Order - Quando cliente loga a primeira vez na mesa.
+Client - Cliente vinculado a mesa.
+Table - Mesas.
+OrderItem - Pedidos do Order
+Product - Produtos
+
+Vinculos
+
+Order 1.n Client
+Order 1.1 Table
+Order 1.n OrderItem
+
+OrderItem 1.n Product
+
+Notification - 
