@@ -5,14 +5,19 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Entity
 @Builder
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,5 +39,13 @@ public class OrderItem {
 
     @Column(name = "subtotal")
     private BigDecimal subtotal;
+
+    @Column(name = "created_at")
+    @CreationTimestamp()
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
+    @UpdateTimestamp()
+    private LocalDateTime updatedAt;
 
 }

@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
@@ -13,28 +16,23 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+@EntityListeners(AuditingEntityListener.class)
+public class Consumer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "name")
     private String name;
 
-    @Column(name = "email")
-    private String email;
-
-    @Column(name = "password")
-    private String password;
-
-    @Column(name = "role")
-    private String role; // admin, waiter, cook
-
     @Column(name = "created_at")
+    @CreationTimestamp()
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
+    @UpdateTimestamp()
     private LocalDateTime updatedAt;
+
 
 }
