@@ -1,4 +1,4 @@
 package br.com.bareasy.service;
 
-public class OrderServiceImpl {
+public interface OrderService {
 }

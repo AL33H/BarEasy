@@ -32,14 +32,7 @@ public class ProductController {
 
     @PostMapping
     public BarProduct createProduct(@RequestBody BarProduct product) {
-        BarProduct build = new BarProduct().builder()
-                .active(true)
-                .price(new BigDecimal("100.00"))
-                .description("Banana prata")
-                .name("Banana")
-                .build();
-
-        return productService.createProduct(build);
+        return productService.createProduct(product);
     }
 
     // Endpoint para atualizar um produto existente
