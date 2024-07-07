@@ -1,6 +1,6 @@
 package br.com.bareasy.service.product;
 
-import br.com.bareasy.model.Product;
+import br.com.bareasy.model.BarProduct;
 import br.com.bareasy.repository.ProductRepository;
 import br.com.bareasy.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,23 +19,23 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getAllProducts() {
+    public List<BarProduct> getAllProducts() {
         return productRepository.findAll();
     }
 
     @Override
-    public Product getProductById(Long id) {
+    public BarProduct getProductById(Long id) {
         return productRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Product not found"));
     }
 
     @Override
-    public Product createProduct(Product product) {
+    public BarProduct createProduct(BarProduct product) {
         return productRepository.save(product);
     }
 
     @Override
-    public Product updateProduct(Long id, Product productDetails) {
-        Product product = productRepository.findById(id)
+    public BarProduct updateProduct(Long id, BarProduct productDetails) {
+        BarProduct product = productRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Product not found with id " + id));
 
         product.setName(productDetails.getName());
@@ -47,7 +47,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void inactiveProduct(Long id) {
-        Product product = productRepository.findById(id)
+        BarProduct product = productRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Product not found with id " + id));
 
         product.inactiveProduct();

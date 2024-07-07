@@ -1,13 +1,10 @@
 package br.com.bareasy.model;
 
-import br.com.bareasy.model.enums.TableStatusEnum;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -16,20 +13,25 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class Table {
+public class BarProduct {
 
     @Id
     @GeneratedValue(strategy =GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(name = "number")
-    private int number;
+    @Setter
+    @Column(name = "name")
+    private String name;
 
-    @Column(name = "status")
-    private TableStatusEnum status;
+    @Setter
+    @Column(name = "description", columnDefinition = "TEXT")
+    private String description;
 
-    @Column(name = "qr_code")
-    private String qrCode;
+    private boolean active = true;
+
+    @Setter
+    @Column(name = "price")
+    private BigDecimal price;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -37,4 +39,7 @@ public class Table {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    public void inactiveProduct(){
+        this.active = false;
+    }
 }

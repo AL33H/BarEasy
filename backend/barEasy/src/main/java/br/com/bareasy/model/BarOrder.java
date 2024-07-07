@@ -17,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class Order {
+public class BarOrder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -33,13 +33,16 @@ public class Order {
     @Column(name = "total")
     private BigDecimal total;
 
+    @OneToMany()
+    private List<BarOrderItem> items;
+
     @OneToOne
     @JoinColumn(name = "table_id")
-    private Table table;
+    private BarTable barTable;
 
     @OneToMany
     @JoinColumn(name = "consumers")
-    private List<Consumer> consumer;
+    private List<BarConsumer> consumer;
 
     @Column(name = "created_at")
     @CreationTimestamp()

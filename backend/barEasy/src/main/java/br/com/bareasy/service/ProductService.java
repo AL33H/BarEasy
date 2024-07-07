@@ -1,17 +1,17 @@
 package br.com.bareasy.service;
 
-import br.com.bareasy.model.Product;
+import br.com.bareasy.model.BarProduct;
 
 import java.util.List;
 
 public interface ProductService {
-    List<Product> getAllProducts();
+    List<BarProduct> getAllProducts();
 
-    Product getProductById(Long id);
+    BarProduct getProductById(Long id);
 
-    Product createProduct(Product product);
+    BarProduct createProduct(BarProduct product);
 
-    Product updateProduct(Long id, Product productDetails);
+    BarProduct updateProduct(Long id, BarProduct productDetails);
 
     void inactiveProduct(Long id);
 }

@@ -1,10 +1,11 @@
 package br.com.bareasy.controller;
 
-import br.com.bareasy.model.Product;
+import br.com.bareasy.model.BarProduct;
 import br.com.bareasy.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController()
@@ -19,27 +20,31 @@ public class ProductController {
     }
 
 
-    // Endpoint para listar todos os produtos
     @GetMapping
-    public List<Product> getAllProducts() {
+    public List<BarProduct> getAllProducts() {
         return productService.getAllProducts();
     }
 
-    // Endpoint para obter um produto por ID
     @GetMapping("/{id}")
-    public Product getProductById(@PathVariable Long id) {
+    public BarProduct getProductById(@PathVariable Long id) {
         return productService.getProductById(id);
     }
 
-    // Endpoint para criar um novo produto
     @PostMapping
-    public Product createProduct(@RequestBody Product product) {
-        return productService.createProduct(product);
+    public BarProduct createProduct(@RequestBody BarProduct product) {
+        BarProduct build = new BarProduct().builder()
+                .active(true)
+                .price(new BigDecimal("100.00"))
+                .description("Banana prata")
+                .name("Banana")
+                .build();
+
+        return productService.createProduct(build);
     }
 
     // Endpoint para atualizar um produto existente
     @PutMapping("/{id}")
-    public Product updateProduct(@PathVariable Long id, @RequestBody Product productDetails) {
+    public BarProduct updateProduct(@PathVariable Long id, @RequestBody BarProduct productDetails) {
         return productService.updateProduct(id, productDetails);
     }
 

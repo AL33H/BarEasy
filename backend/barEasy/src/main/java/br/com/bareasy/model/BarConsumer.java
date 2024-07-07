@@ -1,10 +1,14 @@
 package br.com.bareasy.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -13,33 +17,22 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class Product {
+public class BarConsumer {
 
     @Id
-    @GeneratedValue(strategy =GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id", nullable = false)
     private Long id;
 
-    @Setter
-    @Column(name = "name")
     private String name;
 
-    @Setter
-    @Column(name = "description", columnDefinition = "TEXT")
-    private String description;
-
-    private boolean active = true;
-
-    @Setter
-    @Column(name = "price")
-    private BigDecimal price;
-
     @Column(name = "created_at")
+    @CreationTimestamp()
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
+    @UpdateTimestamp()
     private LocalDateTime updatedAt;
 
-    public void inactiveProduct(){
-        this.active = false;
-    }
+
 }

@@ -1,5 +1,6 @@
 package br.com.bareasy.model;
 
+import br.com.bareasy.model.enums.OrderItemStatusEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +10,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -17,14 +19,31 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class Consumer {
+public class BarOrderItem {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy =GenerationType.SEQUENCE)
     private Long id;
 
-    private String name;
+    @ManyToOne
+    @JoinColumn(name = "barorder_id")
+    private BarOrder barOrder;
+
+    @ManyToOne
+    @JoinColumn(name = "barproduct_id")
+    private BarProduct product;
+
+    @Enumerated(EnumType.STRING)
+    private OrderItemStatusEnum status;
+
+    @Column(name = "quantity")
+    private int quantity;
+
+    @Column(name = "unit_price")
+    private BigDecimal unitPrice;
+
+    @Column(name = "subtotal")
+    private BigDecimal subtotal;
 
     @Column(name = "created_at")
     @CreationTimestamp()
@@ -33,6 +52,5 @@ public class Consumer {
     @Column(name = "updated_at")
     @UpdateTimestamp()
     private LocalDateTime updatedAt;
-
 
 }
