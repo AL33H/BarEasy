@@ -1,5 +1,6 @@
 package br.com.bareasy.model;
 
+import br.com.bareasy.model.enums.OrderItemStatusEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,8 +20,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
 public class OrderItem {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy =GenerationType.SEQUENCE)
     private Long id;
 
     @ManyToOne
@@ -30,6 +32,9 @@ public class OrderItem {
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
+
+    @Enumerated(EnumType.STRING)
+    private OrderItemStatusEnum status;
 
     @Column(name = "quantity")
     private int quantity;

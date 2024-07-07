@@ -1,10 +1,7 @@
 package br.com.bareasy.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
@@ -19,15 +16,20 @@ import java.time.LocalDateTime;
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy =GenerationType.SEQUENCE)
     private Long id;
 
+    @Setter
     @Column(name = "name")
     private String name;
 
+    @Setter
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
+    private boolean active = true;
+
+    @Setter
     @Column(name = "price")
     private BigDecimal price;
 
@@ -37,4 +39,7 @@ public class Product {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    public void inactiveProduct(){
+        this.active = false;
+    }
 }
