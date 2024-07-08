@@ -3,20 +3,17 @@ package br.com.bareasy.service.product;
 import br.com.bareasy.model.BarProduct;
 import br.com.bareasy.repository.ProductRepository;
 import br.com.bareasy.service.ProductService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
-
-    @Autowired
-    public ProductServiceImpl(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
 
     @Override
     public List<BarProduct> getAllProducts() {

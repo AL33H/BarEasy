@@ -7,23 +7,19 @@ import br.com.bareasy.model.BarTable;
 import br.com.bareasy.repository.OrderItemRepository;
 import br.com.bareasy.repository.OrderRepository;
 import br.com.bareasy.service.OrderService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class OrderServiceImpl implements OrderService {
 
     OrderItemRepository orderItemRepository;
 
     OrderRepository orderRepository;
-
-    @Autowired
-    public OrderServiceImpl(OrderItemRepository orderItemRepository, OrderRepository orderRepository) {
-        this.orderItemRepository = orderItemRepository;
-        this.orderRepository = orderRepository;
-    }
 
     /**
      * @param barTable    BarTable

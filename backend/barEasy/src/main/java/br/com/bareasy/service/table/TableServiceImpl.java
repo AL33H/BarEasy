@@ -4,19 +4,14 @@ import br.com.bareasy.model.BarTable;
 import br.com.bareasy.model.enums.TableStatusEnum;
 import br.com.bareasy.repository.TableRepository;
 import br.com.bareasy.service.TableService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class TableServiceImpl implements TableService {
 
-
     TableRepository tableRepository;
-
-    @Autowired
-    public TableServiceImpl(TableRepository tableRepository) {
-        this.tableRepository = tableRepository;
-    }
 
     @Override
     public BarTable findByStatusIsEmpty() {

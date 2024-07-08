@@ -1,25 +1,28 @@
 package br.com.bareasy.service.orderitem;
 
+import br.com.bareasy.events.newOrderItemEvent;
 import br.com.bareasy.model.BarOrderItem;
 import br.com.bareasy.model.enums.OrderItemStatusEnum;
 import br.com.bareasy.repository.OrderItemRepository;
 import br.com.bareasy.service.OrderItemService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class OrderItemServiceImpl implements OrderItemService {
 
-    OrderItemRepository orderItemRepository;
+    private final OrderItemRepository orderItemRepository;
 
-    @Autowired
-    public OrderItemServiceImpl(OrderItemRepository orderItemRepository) {
-        this.orderItemRepository = orderItemRepository;
-    }
+    private final ApplicationEventPublisher applicationEventPublisher;
 
     @Override
     public BarOrderItem insert(BarOrderItem barOrderItem) {
-        return orderItemRepository.save(barOrderItem);
+        BarOrderItem saved = orderItemRepository.save(barOrderItem);
+        applicationEventPublisher.publishEvent(new newOrderItemEvent(this, saved, saved.getBarOrder(), saved.getBarOrder().getBarTable()));
+        return saved;
     }
 
     @Override

@@ -3,19 +3,16 @@ package br.com.bareasy.service.consumer;
 import br.com.bareasy.model.BarConsumer;
 import br.com.bareasy.repository.ConsumerRepository;
 import br.com.bareasy.service.ConsumerService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class ConsumerServiceImpl implements ConsumerService {
-    ConsumerRepository consumerRepository;
 
-    @Autowired
-    public ConsumerServiceImpl(ConsumerRepository consumerRepository) {
-        this.consumerRepository = consumerRepository;
-    }
+    ConsumerRepository consumerRepository;
 
     @Override
     public List<BarConsumer> findAll() {
