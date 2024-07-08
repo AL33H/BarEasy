@@ -1,12 +1,12 @@
 package br.com.bareasy.service.orderitem;
 
-import br.com.bareasy.events.newOrderItemEvent;
+import br.com.bareasy.events.OnOrderItemCreatedEvent;
+import br.com.bareasy.events.OnOrderItemIsCompletedEvent;
 import br.com.bareasy.model.BarOrderItem;
 import br.com.bareasy.model.enums.OrderItemStatusEnum;
 import br.com.bareasy.repository.OrderItemRepository;
 import br.com.bareasy.service.OrderItemService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
@@ -21,13 +21,17 @@ public class OrderItemServiceImpl implements OrderItemService {
     @Override
     public BarOrderItem insert(BarOrderItem barOrderItem) {
         BarOrderItem saved = orderItemRepository.save(barOrderItem);
-        applicationEventPublisher.publishEvent(new newOrderItemEvent(this, saved, saved.getBarOrder(), saved.getBarOrder().getBarTable()));
+        applicationEventPublisher.publishEvent(new OnOrderItemCreatedEvent(this, saved, saved.getBarOrder(), saved.getBarOrder().getBarTable()));
         return saved;
     }
 
     @Override
     public BarOrderItem update(BarOrderItem barOrderItem) {
-        return orderItemRepository.save(barOrderItem);
+        BarOrderItem updated = orderItemRepository.save(barOrderItem);
+        if (updated.getStatus().equals(OrderItemStatusEnum.COMPLETED)) {
+            applicationEventPublisher.publishEvent(new OnOrderItemIsCompletedEvent(this, updated, updated.getBarOrder(), updated.getBarOrder().getBarTable()));
+        }
+        return updated;
     }
 
     @Override

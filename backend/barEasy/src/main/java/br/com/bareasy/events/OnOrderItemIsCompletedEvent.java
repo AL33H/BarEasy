@@ -7,12 +7,12 @@ import lombok.Getter;
 import org.springframework.context.ApplicationEvent;
 
 @Getter
-public class newOrderItemEvent extends ApplicationEvent {
+public class OnOrderItemIsCompletedEvent extends ApplicationEvent {
     private final BarOrderItem barOrderItem;
     private final BarOrder barOrder;
     private final BarTable barTable;
 
-    public newOrderItemEvent(Object source, BarOrderItem barOrderItem, BarOrder barOrder, BarTable barTable) {
+    public OnOrderItemIsCompletedEvent(Object source, BarOrderItem barOrderItem, BarOrder barOrder, BarTable barTable) {
         super(source);
         this.barOrderItem = barOrderItem;
         this.barOrder = barOrder;
