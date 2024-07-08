@@ -11,7 +11,7 @@ public interface ProductService {
 
     BarProduct createProduct(BarProduct product);
 
-    BarProduct updateProduct(Long id, BarProduct productDetails);
+    BarProduct updateProduct(BarProduct productDetails);
 
     void inactiveProduct(Long id);
 }

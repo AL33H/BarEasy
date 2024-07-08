@@ -9,6 +9,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -25,16 +26,16 @@ public class BarOrder {
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    private OrderStatusEnum status;
+    private OrderStatusEnum status = OrderStatusEnum.CONSUMING;
 
     @Column(name = "notes", columnDefinition = "TEXT")
-    private String notes;
+    private String notes = "";
 
     @Column(name = "total")
-    private BigDecimal total;
+    private BigDecimal total = BigDecimal.ZERO;
 
     @OneToMany()
-    private List<BarOrderItem> items;
+    private List<BarOrderItem> items = new ArrayList<>();
 
     @OneToOne
     @JoinColumn(name = "table_id")
@@ -53,6 +54,13 @@ public class BarOrder {
     private LocalDateTime updatedAt;
 
     public void nextState() {
-        this.status.next();
+        this.status = this.status.next();
+    }
+
+    public static BarOrder initializeOrder(BarTable barTable, BarConsumer consumer) {
+        BarOrder barOrder = new BarOrder();
+        barOrder.barTable = barTable;
+        barOrder.consumer = List.of(consumer);
+        return barOrder;
     }
 }

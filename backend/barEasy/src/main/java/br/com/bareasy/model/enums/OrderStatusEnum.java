@@ -6,7 +6,8 @@ public enum OrderStatusEnum {
      */
     CONSUMING {
         @Override
-        public void next() {
+        public OrderStatusEnum next() {
+            return PAYMENT_PENDING;
         }
     },
     /**
@@ -14,7 +15,8 @@ public enum OrderStatusEnum {
      */
     PAYMENT_PENDING {
         @Override
-        public void next() {
+        public OrderStatusEnum next() {
+            return PAYMENT_COMPLETED;
         }
     },
     /**
@@ -22,7 +24,8 @@ public enum OrderStatusEnum {
      */
     PAYMENT_COMPLETED {
         @Override
-        public void next() {
+        public OrderStatusEnum next() {
+            return FINALIZED;
         }
     },
     /**
@@ -30,9 +33,10 @@ public enum OrderStatusEnum {
      */
     FINALIZED {
         @Override
-        public void next() {
+        public OrderStatusEnum next() {
+            return FINALIZED;
         }
     };
 
-    public abstract void next();
+    public abstract OrderStatusEnum next();
 }

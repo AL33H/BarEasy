@@ -19,8 +19,13 @@ public class TableServiceImpl implements TableService {
     }
 
     @Override
-    public BarTable findByStatusIsEmpty(TableStatusEnum tableStatusEnum) {
-        return tableRepository.findAllByStatus(tableStatusEnum);
+    public BarTable findByStatusIsEmpty() {
+        return tableRepository.findAllByStatus(TableStatusEnum.EMPTY);
+    }
+
+    @Override
+    public BarTable findByStatusIsOccupied() {
+        return tableRepository.findAllByStatus(TableStatusEnum.OCCUPIED);
     }
 
     @Override

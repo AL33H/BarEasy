@@ -5,7 +5,6 @@ import br.com.bareasy.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @RestController()
@@ -35,13 +34,11 @@ public class ProductController {
         return productService.createProduct(product);
     }
 
-    // Endpoint para atualizar um produto existente
     @PutMapping("/{id}")
-    public BarProduct updateProduct(@PathVariable Long id, @RequestBody BarProduct productDetails) {
-        return productService.updateProduct(id, productDetails);
+    public BarProduct updateProduct(@RequestBody BarProduct productDetails) {
+        return productService.updateProduct(productDetails);
     }
 
-    // Endpoint para excluir um produto
     @DeleteMapping("/{id}")
     public void inactiveProduct(@PathVariable Long id) {
         productService.inactiveProduct(id);

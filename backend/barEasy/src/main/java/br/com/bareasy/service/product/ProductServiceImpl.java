@@ -34,15 +34,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public BarProduct updateProduct(Long id, BarProduct productDetails) {
-        BarProduct product = productRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Product not found with id " + id));
-
-        product.setName(productDetails.getName());
-        product.setDescription(productDetails.getDescription());
-        product.setPrice(productDetails.getPrice());
-
-        return productRepository.save(product);
+    public BarProduct updateProduct(BarProduct productDetails) {
+        return productRepository.save(productDetails);
     }
 
     @Override
